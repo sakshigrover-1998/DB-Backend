@@ -1,4 +1,4 @@
-from typing import final
+
 from Exceptions.models import ExceptionType
 from django.db import models
 from django.shortcuts import redirect, render
