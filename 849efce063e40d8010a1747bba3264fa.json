@@ -1,0 +1,14 @@
+[
+  {
+    "exception_ID": 1,
+    "exception_name": "MandatoryField",
+    "exception_component": "TAILAYER",
+    "exception_level": "LOW",
+    "exception_description": "",
+    "exception_COBDT": "2006-10-25",
+    "exception_LegalEntity": "Mumbai",
+    "exception_ProfitCenter": "Asia",
+    "exception_BusinessLine": "OTC",
+    "exception_Region": "India"
+  }
+]

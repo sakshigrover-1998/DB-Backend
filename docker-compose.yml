@@ -1,0 +1,54 @@
+version: '3.5'
+services:
+
+  app:
+    build: .
+    image: &app dashboardbackend
+    restart: "no"
+    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/dataFlowDashboard
+    depends_on:
+      - broker
+         
+  celeryworker:
+    build: .
+    restart: "no"
+    command: celery -A DashboardBackend worker --pool=solo -l info
+    volumes:
+      - ./dataFlowDashboard:/DashboardBackend
+    # links:
+    #     - "broker:rabbitmq"
+    
+    # depends_on:
+    #   - broker
+
+  celerybeat:
+    build: .
+    restart: "no"
+    command: celery -A DashboardBackend beat --loglevel=info
+    volumes:
+        - ./dataFlowDashboard:/DashboardBackend
+    # links:
+    #      - "broker:rabbitmq"
+    # depends_on:
+    #     - broker
+        
+
+
+
+  # broker:
+  #   image: rabbitmq:3-management
+  #   # restart: "no"
+  #   # hostname: rabbitmq
+  #   enviornment:
+  #     RABBITMQ_ERLANG_COOKIE:'secret cookie'
+  #   ports:
+  #       - 5672:5672
+  #       - 15672:15672
+  #   expose:
+  #       - 5672
+  #       - 15672
